@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
-    return 'ini route utama';
-});
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
 
 Route::get('/products', function () {
     return 'ini route products';
@@ -14,6 +15,5 @@ Route::get('/checkout', function () {
     return 'ini route checkout' ;
 });
 
-Route::get('/cart', function () {
-    return 'ini route cart' ;
-});
+
+Route::resource('products-resource', \App\Http\Controllers\ProductController::class);
