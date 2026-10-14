@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('image');
             $table->integer('price');
             $table->integer('stock');
+            $table->foreignId('product_category_id')->constrained();
             $table->timestamps();
         });
     }
