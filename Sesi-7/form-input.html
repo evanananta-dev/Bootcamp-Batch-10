@@ -25,92 +25,58 @@
             <div class="col-md-6 col-lg-5">
                 <div class="card shadow-sm border rounded-4 p-4 p-md-5 bg-white">
 
-                <?php if ($sukses): ?>
-
-                    <!-- ===== Tampilan konfirmasi ===== -->
                     <div class="text-center mb-4">
-                        <i class="fa-solid fa-circle-check fa-3x mb-2 text-primary"></i>
-                        <h2 class="fw-bold fs-3">Data Produk Berhasil Diterima!</h2>
-                    </div>
-
-                    <hr>
-
-                    <div class="mb-4" style="font-size: 15px; line-height: 1.8;">
-                        <p class="mb-1"><strong>Nama Produk:</strong> <?= e($old['nama_produk']) ?></p>
-                        <p class="mb-1"><strong>Harga:</strong> Rp <?= number_format($harga, 0, ',', '.') ?></p>
-                        <p class="mb-1"><strong>Kategori:</strong> <?= e($old['kategori']) ?></p>
-                        <p class="mb-0">
-                            <strong>URL Gambar:</strong>
-                            <a href="<?= e($old['gambar_url']) ?>" target="_blank" rel="noopener noreferrer" class="text-decoration-none">
-                                <?= e($old['gambar_url']) ?>
-                            </a>
-                        </p>
-                    </div>
-
-                    <a href="form-tambah.php" class="btn btn-primary w-100 py-2 rounded-pill fw-semibold shadow-sm">
-                        <i class="fa-solid fa-arrow-left me-2"></i>Kembali ke Form
-                    </a>
-
-                <?php else: ?>
-
-                    <!-- ===== Tampilan form ===== -->
-                    <div class="text-center mb-4">
-                        <i class="fa-brands fa-apple fa-3x mb-2 text-dark"></i>
+                        <i class="fa-brands fa-3x mb-2 text-dark"></i>
                         <h2 class="fw-bold fs-3">Tambah Produk Baru</h2>
                         <p class="text-secondary small">Masukkan detail produk sesuai spesifikasi toko.</p>
                     </div>
 
-                    <?php if (!empty($errors)): ?>
-                        <div class="alert alert-danger small" role="alert">
-                            <ul class="mb-0 ps-3">
-                                <?php foreach ($errors as $error): ?>
-                                    <li><?= e($error) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
-
-                    <!-- Form dikirim ke file ini sendiri -->
                     <form action="form-tambah.php" method="POST">
                         <div class="mb-3">
                             <label for="nama_produk" class="form-label fw-semibold small">Nama Produk</label>
                             <input type="text" class="form-control rounded-3 py-2" id="nama_produk" name="nama_produk"
-                                   required placeholder="Contoh: AppPhone X12 Pro"
-                                   value="<?= e($old['nama_produk']) ?>">
+                                   required maxlength="100" placeholder="Contoh: AppPhone X12 Pro">
                         </div>
 
                         <div class="mb-3">
                             <label for="harga" class="form-label fw-semibold small">Harga (IDR)</label>
                             <input type="number" class="form-control rounded-3 py-2" id="harga" name="harga"
-                                   required min="1" placeholder="15999000"
-                                   value="<?= e($old['harga']) ?>">
+                                   required min="1" placeholder="15999000">
                         </div>
 
                         <div class="mb-3">
                             <label for="kategori" class="form-label fw-semibold small">Kategori</label>
                             <select class="form-select rounded-3 py-2" id="kategori" name="kategori" required>
-                                <option value="" disabled <?= $old['kategori'] === '' ? 'selected' : '' ?>>Pilih Kategori</option>
-                                <?php foreach ($daftarKategori as $kategori): ?>
-                                    <option value="<?= e($kategori) ?>" <?= $old['kategori'] === $kategori ? 'selected' : '' ?>>
-                                        <?= e($kategori) ?>
-                                    </option>
-                                <?php endforeach; ?>
+                                <option value="" disabled selected>Pilih Kategori</option>
+                                <option value="Phone">Phone</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Tablet">Tablet</option>
                             </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="stok" class="form-label fw-semibold small">Stok</label>
+                            <input type="number" class="form-control rounded-3 py-2" id="stok" name="stok"
+                                   required min="0" placeholder="Contoh: 25">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="deskripsi" class="form-label fw-semibold small">Deskripsi</label>
+                            <textarea class="form-control rounded-3 py-2" id="deskripsi" name="deskripsi"
+                                      rows="4" required maxlength="500"
+                                      placeholder="Jelaskan spesifikasi dan keunggulan produk (maks. 500 karakter)"></textarea>
                         </div>
 
                         <div class="mb-4">
                             <label for="gambar_url" class="form-label fw-semibold small">URL Gambar Produk</label>
                             <input type="url" class="form-control rounded-3 py-2" id="gambar_url" name="gambar_url"
-                                   required placeholder="https://placehold.co/300x300/eee/333?text=Product"
-                                   value="<?= e($old['gambar_url']) ?>">
+                                   required placeholder="https://placehold.co/300x300/eee/333?text=Product">
                         </div>
 
                         <button type="submit" class="btn btn-primary w-100 py-2 rounded-pill fw-semibold shadow-sm">
                             <i class="fa-solid fa-plus me-2"></i>Simpan Produk
                         </button>
                     </form>
-
-                <?php endif; ?>
 
                 </div>
             </div>
