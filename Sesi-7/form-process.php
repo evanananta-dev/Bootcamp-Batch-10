@@ -1,48 +1,26 @@
 <?php
-// ===== Helper =====
-function e($teks) {
-    return htmlspecialchars((string) $teks, ENT_QUOTES, 'UTF-8');
-}
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama_produk = trim($_POST["nama_produk"]);
+    $harga       = trim($_POST["harga"]);
+    $kategori    = trim($_POST["kategori"]);
+    $stok        = trim($_POST["stok"]);
+    $deskripsi   = trim($_POST["deskripsi"]);
+    $gambar      = trim($_POST["gambar_url"]);
 
-// ===== Konfigurasi =====
-$daftarKategori = ['Phone', 'Laptop', 'Tablet', 'Aksesoris'];
-
-// ===== State =====
-$errors = [];
-$sukses = false;
-$old = [
-    'nama_produk' => '',
-    'harga'       => '',
-    'kategori'    => '',
-    'gambar_url'  => '',
-];
-$harga = 0;
-
-// ===== Proses form (hanya saat dikirim lewat POST) =====
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    foreach ($old as $key => $_) {
-        $old[$key] = trim($_POST[$key] ?? '');
+    if ($nama_produk === '' || $harga === '' || $kategori === '' ||
+        $stok === '' || $deskripsi === '' || $gambar === '') {
+        echo "Semua field harus diisi.";
+        exit;
     }
 
-    if ($old['nama_produk'] === '') {
-        $errors[] = 'Nama produk wajib diisi.';
-    }
-
-    $harga = filter_var($old['harga'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
-    if ($harga === false) {
-        $errors[] = 'Harga harus berupa angka bulat lebih dari 0.';
-    }
-
-    if (!in_array($old['kategori'], $daftarKategori, true)) {
-        $errors[] = 'Pilih kategori yang valid.';
-    }
-
-    // URL harus valid dan hanya boleh http/https (mencegah javascript: dan sejenisnya)
-    $scheme = strtolower((string) parse_url($old['gambar_url'], PHP_URL_SCHEME));
-    if (!filter_var($old['gambar_url'], FILTER_VALIDATE_URL) || !in_array($scheme, ['http', 'https'], true)) {
-        $errors[] = 'URL gambar harus valid dan diawali http:// atau https://.';
-    }
-
-    $sukses = empty($errors);
+    echo "<h3>Data diterima!</h3>";
+    echo "Nama Produk: " . htmlspecialchars($nama_produk) . "<br>";
+    echo "Harga: Rp " . number_format((int)$harga, 0, ',', '.') . "<br>";
+    echo "Kategori: " . htmlspecialchars($kategori) . "<br>";
+    echo "Stok: " . (int)$stok . " unit<br>";
+    echo "Deskripsi: " . nl2br(htmlspecialchars($deskripsi)) . "<br>";
+    echo "Gambar: " . htmlspecialchars($gambar) . "<br>";
+} else {
+    echo "Akses tidak valid. Silakan isi form terlebih dahulu.";
 }
 ?>
