@@ -33,9 +33,9 @@
               <label for="category-filter" class="form-label">Kategori</label>
               <select id="category-filter" class="form-select">
                 <option value="all">Semua kategori</option>
-                <option value="Phone">Phone</option>
-                <option value="Laptop">Laptop</option>
-                <option value="Tablet">Tablet</option>
+                <option value="1">Phone</option>
+                <option value="2">Laptop</option>
+                <option value="3">Tablet</option>
               </select>
             </div>
 
@@ -52,157 +52,34 @@
           <p class="text-secondary">Menampilkan 6 produk</p>
 
           <div class="row g-4">
-            <!-- Produk 1 -->
+            @foreach ($products as $product)
             <div class="col-12 col-sm-6 col-lg-4">
               <div class="card h-100 border-0 shadow-sm">
-                <div
-                  class="bg-light d-flex align-items-center justify-content-center text-secondary"
-                  style="height: 200px"
-                >
-                  Gambar Produk
+                <div>
+                  <img src="{{ $product->image}}"
+                     class="w-100 object-fit-cover"
+                     style="height: 200px"
+                     alt="{{ $product->name }}">
                 </div>
                 <div class="card-body d-flex flex-column">
                   <span class="badge text-bg-secondary align-self-start mb-2"
-                    >Phone</span
+                    >{{ $product->category->name }}</span
                   >
-                  <h5 class="card-title">AppPhone 15</h5>
+                  <h5 class="card-title">{{ $product->name }}</h5>
                   <p class="card-text text-secondary small">
-                    Layar 6,1 inci, kamera ganda, dan baterai tahan seharian.
+                    {{ $product->description }}
                   </p>
-                  <p class="fw-bold mt-auto mb-3">Rp 12.999.000</p>
+                  <p class="fw-bold mt-auto mb-3">Rp {{ number_format($product->price, 0, ',', '.') }}</p>
                   <button type="button" class="btn btn-primary rounded-pill">
                     Tambah ke Tas
                   </button>
                 </div>
               </div>
             </div>
-
-            <!-- Produk 2 -->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="card h-100 border-0 shadow-sm">
-                <div
-                  class="bg-light d-flex align-items-center justify-content-center text-secondary"
-                  style="height: 200px"
-                >
-                  Gambar Produk
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <span class="badge text-bg-secondary align-self-start mb-2"
-                    >Phone</span
-                  >
-                  <h5 class="card-title">AppPhone Pro</h5>
-                  <p class="card-text text-secondary small">
-                    Kamera tiga lensa dengan chip tercepat di kelasnya.
-                  </p>
-                  <p class="fw-bold mt-auto mb-3">Rp 18.999.000</p>
-                  <button type="button" class="btn btn-primary rounded-pill">
-                    Tambah ke Tas
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Produk 3 -->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="card h-100 border-0 shadow-sm">
-                <div
-                  class="bg-light d-flex align-items-center justify-content-center text-secondary"
-                  style="height: 200px"
-                >
-                  Gambar Produk
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <span class="badge text-bg-secondary align-self-start mb-2"
-                    >Laptop</span
-                  >
-                  <h5 class="card-title">AppBook Air</h5>
-                  <p class="card-text text-secondary small">
-                    Laptop tipis dan ringan untuk kuliah dan kerja harian.
-                  </p>
-                  <p class="fw-bold mt-auto mb-3">Rp 16.499.000</p>
-                  <button type="button" class="btn btn-primary rounded-pill">
-                    Tambah ke Tas
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Produk 4 -->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="card h-100 border-0 shadow-sm">
-                <div
-                  class="bg-light d-flex align-items-center justify-content-center text-secondary"
-                  style="height: 200px"
-                >
-                  Gambar Produk
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <span class="badge text-bg-secondary align-self-start mb-2"
-                    >Laptop</span
-                  >
-                  <h5 class="card-title">AppBook Pro</h5>
-                  <p class="card-text text-secondary small">
-                    Performa tinggi untuk pengolahan data dan pemrograman.
-                  </p>
-                  <p class="fw-bold mt-auto mb-3">Rp 29.999.000</p>
-                  <button type="button" class="btn btn-primary rounded-pill">
-                    Tambah ke Tas
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Produk 5 -->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="card h-100 border-0 shadow-sm">
-                <div
-                  class="bg-light d-flex align-items-center justify-content-center text-secondary"
-                  style="height: 200px"
-                >
-                  Gambar Produk
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <span class="badge text-bg-secondary align-self-start mb-2"
-                    >Tablet</span
-                  >
-                  <h5 class="card-title">AppPad</h5>
-                  <p class="card-text text-secondary small">
-                    Tablet 10 inci untuk menggambar, membaca, dan menonton.
-                  </p>
-                  <p class="fw-bold mt-auto mb-3">Rp 7.999.000</p>
-                  <button type="button" class="btn btn-primary rounded-pill">
-                    Tambah ke Tas
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Produk 6 -->
-            <div class="col-12 col-sm-6 col-lg-4">
-              <div class="card h-100 border-0 shadow-sm">
-                <div
-                  class="bg-light d-flex align-items-center justify-content-center text-secondary"
-                  style="height: 200px"
-                >
-                  Gambar Produk
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <span class="badge text-bg-secondary align-self-start mb-2"
-                    >Tablet</span
-                  >
-                  <h5 class="card-title">AppPad Pro</h5>
-                  <p class="card-text text-secondary small">
-                    Layar 12,9 inci dengan dukungan pena untuk kerja kreatif.
-                  </p>
-                  <p class="fw-bold mt-auto mb-3">Rp 14.999.000</p>
-                  <button type="button" class="btn btn-primary rounded-pill">
-                    Tambah ke Tas
-                  </button>
-                </div>
-              </div>
-            </div>
+            @endforeach
           </div>
+          <div class="col-12 mt-4">
+            {{ $products->links() }}
         </div>
-      </div>
     </section>
 @endsection
