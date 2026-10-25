@@ -9,8 +9,8 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $products = Product::paginate(2);
-        return view ('home', compact('products'));
+        $products = Product::paginate(3);
+        return view('home', compact('products'));
     }
 
     public function cart()

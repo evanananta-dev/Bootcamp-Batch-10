@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top py-2 bg-white border-bottom">
     <div class="container">
-        <a class="navbar-brand text-dark d-flex align-items-center gap-2 fw-semibold fs-6" href="index.html">
+        <a class="navbar-brand text-dark d-flex align-items-center gap-2 fw-semibold fs-6" href="/">
             <i class="fa-brands fa-apple fa-xl text-dark"></i> <span>AppStore</span>
         </a>
 

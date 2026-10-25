@@ -1,5 +1,5 @@
 <?php
-require 'koneksi_db.php';
+require 'koneksi.php';
  
 $cols = $pdo->query("SHOW COLUMNS FROM products")->fetchAll(PDO::FETCH_COLUMN);
  
