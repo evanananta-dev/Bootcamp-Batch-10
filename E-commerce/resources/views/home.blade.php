@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('../layouts/layout')
 @section('title', 'Home')
 @section('content')
   <section class="bg-black text-white text-center py-5">
