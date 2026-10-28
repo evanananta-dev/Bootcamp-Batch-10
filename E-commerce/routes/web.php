@@ -10,7 +10,7 @@ Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/cart', [CartController::class, 'cart'])->name('cart');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('../admin/dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -20,12 +20,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/products', function () {
-    return 'ini route products';
-});
+    return view('../admin/products');
+})->name('products');
 
-Route::get('/checkout', function () {
-    return 'ini route checkout';
-});
+Route::get('/categories', function () {
+    return view('../admin/categories');
+})->name('categories');
 
 
 Route::resource('products-resource', \App\Http\Controllers\ProductController::class);
