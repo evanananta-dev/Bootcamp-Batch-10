@@ -13,8 +13,9 @@
                 <a href="{{ url('/cart') }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
                     Cart
                 </a>
-                <a href="{{ url('/dashboard') }}" class="btn btn-dark btn-sm rounded-pill px-3">
-                    Dashboard
+                <a href="{{ auth()->user()->role === 'admin' ? url('/dashboard') : url('/profile') }}"
+                    class="btn btn-dark btn-sm rounded-pill px-3">
+                    {{ auth()->user()->role === 'admin' ? 'Dashboard' : 'Profile' }}
                 </a>
             @endauth
 
