@@ -14,28 +14,53 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content border-0 shadow rounded-4">
-                        @csrf
+                        <form action="{{ route('categories.store') }}" method="POST">
+                            @csrf
 
-                        <div class="modal-header border-0 pb-0">
-                            <h5 class="modal-title fw-bold" id="modalTambahKategoriLabel">Tambah Kategori</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="mb-0">
-                                <label for="category_name" class="form-label fw-medium">Nama Kategori</label>
-                                <input type="text" class="form-control" id="category_name" name="name" required>
+                            <div class="modal-header border-0 pb-0">
+                                <h5 class="modal-title fw-bold" id="modalTambahKategoriLabel">Tambah Kategori</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Tutup"></button>
                             </div>
-                        </div>
 
-                        <div class="modal-footer border-0 pt-0">
-                            <button type="button" class="btn btn-light rounded-pill px-4"
-                                data-bs-dismiss="modal">Batal</button>
-                            <button type="submit" class="btn btn-dark rounded-pill px-4 fw-semibold">Simpan</button>
-                        </div>
+                            <div class="modal-body">
+                                <div class="mb-0">
+                                    <label for="category_name" class="form-label fw-medium">Nama Kategori</label>
+                                    <input type="text" class="form-control" id="category_name" name="name" required>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer border-0 pt-0">
+                                <button type="button" class="btn btn-light rounded-pill px-4"
+                                    data-bs-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-dark rounded-pill px-4 fw-semibold">Simpan</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="mt-3">
+            @if (session('success'))
+                <div class="alert alert-success border-0 shadow-sm rounded-4 alert-dismissible fade show mb-0" role="alert">
+                    <i class="fa-solid fa-circle-check me-2"></i>{{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger border-0 shadow-sm rounded-4 alert-dismissible fade show mb-0" role="alert">
+                    <i class="fa-solid fa-circle-exclamation me-2"></i>{{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="alert alert-danger border-0 shadow-sm rounded-4 alert-dismissible fade show mb-0" role="alert">
+                    <i class="fa-solid fa-circle-exclamation me-2"></i>{{ $errors->first() }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -52,24 +77,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-secondary fw-medium">1</td>
-                            <td class="fw-semibold">Kategori A</td>
-                            <td class="text-center">
-                                <span class="badge bg-light text-dark border">10</span>
-                            </td>
-                            <td class="text-end">
-                                <div class="d-flex justify-content-end align-items-center gap-2">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3"
-                                        data-bs-toggle="modal" data-bs-target="#modalEditKategori">
-                                        Edit
-                                    </button>
-                                    <button type="submit" class="btn btn-sm text-danger">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                        @foreach ($categories as $category)
+                            <tr>
+                                <td class="text-secondary fw-medium">{{ $category->id }}</td>
+                                <td class="fw-semibold">{{ $category->name }}</td>
+                                <td class="text-center">
+                                    <span class="badge bg-light text-dark border">{{ $category->products_count }}</span>
+                                </td>
+                                <td class="text-end">
+                                    <div class="d-flex justify-content-end align-items-center gap-2">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3"
+                                            data-bs-toggle="modal" data-bs-target="#modalEditKategori">
+                                            Edit
+                                        </button>
+                                        <button type="submit" class="btn btn-sm text-danger">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <div class="modal fade" id="modalEditKategori" tabindex="-1" aria-labelledby="modalEditKategoriLabel"
