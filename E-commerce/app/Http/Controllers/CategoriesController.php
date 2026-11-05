@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 use App\Models\ProductCategory;
 
 class CategoriesController extends Controller
@@ -59,7 +60,8 @@ class CategoriesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = ProductCategory::findOrFail($id);
+        return view('admin.categories', compact('category'));
     }
 
     /**
@@ -67,7 +69,20 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $category = ProductCategory::findOrFail($id);
+
+        if (ProductCategory::where('name', $request->name)->where('id', '!=', $id)->exists()) {
+            return redirect()->back()->with('error', 'Category name already exists.');
+        }
+
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->back()->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -75,6 +90,13 @@ class CategoriesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = ProductCategory::findOrFail($id);
+        $product_check = Product::where('product_category_id', $category->id)->exists();
+        if ($product_check) {
+            Product::where('product_category_id', $category->id)->delete();
+        }
+        $category->delete();
+
+        return redirect()->back()->with('success', 'Category deleted successfully.');
     }
 }

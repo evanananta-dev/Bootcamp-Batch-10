@@ -87,48 +87,61 @@
                                 <td class="text-end">
                                     <div class="d-flex justify-content-end align-items-center gap-2">
                                         <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3"
-                                            data-bs-toggle="modal" data-bs-target="#modalEditKategori">
+                                            data-bs-toggle="modal" data-bs-target="#modalEditKategori{{ $category->id }}">
                                             Edit
                                         </button>
-                                        <button type="submit" class="btn btn-sm text-danger">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </button>
+                                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm text-danger">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <div class="modal fade" id="modalEditKategori" tabindex="-1" aria-labelledby="modalEditKategoriLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content border-0 shadow rounded-4">
+                @foreach ($categories as $category)
+                    <div class="modal fade" id="modalEditKategori{{ $category->id }}" tabindex="-1"
+                        aria-labelledby="modalEditKategoriLabel{{ $category->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0 shadow rounded-4">
+                                <form action="{{ route('categories.update', $category->id) }}" method="POST">
+                                    @method('PUT')
+                                    @csrf
 
-                            <div class="modal-header border-0 pb-0">
-                                <h5 class="modal-title fw-bold" id="modalEditKategoriLabel">Edit
-                                    Kategori</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Tutup"></button>
-                            </div>
+                                    <div class="modal-header border-0 pb-0">
+                                        <h5 class="modal-title fw-bold" id="modalEditKategoriLabel{{ $category->id }}">
+                                            Edit Kategori</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Tutup"></button>
+                                    </div>
 
-                            <div class="modal-body">
-                                <div class="mb-0">
-                                    <label for="edit_category_name" class="form-label fw-medium">Nama
-                                        Kategori</label>
-                                    <input type="text" class="form-control" id="edit_category_name" name="name" value=""
-                                        required>
-                                </div>
-                            </div>
+                                    <div class="modal-body">
+                                        <div class="mb-0">
+                                            <label for="edit_category_name{{ $category->id }}"
+                                                class="form-label fw-medium">Nama Kategori</label>
+                                            <input type="text" class="form-control"
+                                                id="edit_category_name{{ $category->id }}" name="name"
+                                                value="{{ $category->name }}" required>
+                                        </div>
+                                    </div>
 
-                            <div class="modal-footer border-0 pt-0">
-                                <button type="button" class="btn btn-light rounded-pill px-4"
-                                    data-bs-dismiss="modal">Batal</button>
-                                <button type="" class="btn btn-dark rounded-pill px-4 fw-semibold">Simpan
-                                    Perubahan</button>
+                                    <div class="modal-footer border-0 pt-0">
+                                        <button type="button" class="btn btn-light rounded-pill px-4"
+                                            data-bs-dismiss="modal">Batal</button>
+                                        <button type="submit" class="btn btn-dark rounded-pill px-4 fw-semibold">
+                                            Simpan Perubahan
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

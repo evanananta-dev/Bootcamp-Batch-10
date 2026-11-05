@@ -19,7 +19,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-secondary small mb-1 fw-medium">Total Produk</p>
-                            <h3 class="fw-bold text-dark mb-0">24</h3>
+                            <h3 class="fw-bold text-dark mb-0">{{ $JumlahProduk }}</h3>
                         </div>
                         <div class="bg-light text-dark rounded-circle d-flex align-items-center justify-content-center p-3"
                             style="width: 48px; height: 48px;">
@@ -34,7 +34,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-secondary small mb-1 fw-medium">Total Kategori</p>
-                            <h3 class="fw-bold text-dark mb-0">8</h3>
+                            <h3 class="fw-bold text-dark mb-0">{{ $JumlahKategori }}</h3>
                         </div>
                         <div class="bg-light text-dark rounded-circle d-flex align-items-center justify-content-center p-3"
                             style="width: 48px; height: 48px;">
@@ -49,7 +49,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-secondary small mb-1 fw-medium">Jumlah Klik</p>
-                            <h3 class="fw-bold text-dark mb-0">45,920</h3>
+                            <h3 class="fw-bold text-dark mb-0">{{ number_format($JumlahklikProduk, 0, ',', '.') }}</h3>
                         </div>
                         <div class="bg-light text-dark rounded-circle d-flex align-items-center justify-content-center p-3"
                             style="width: 48px; height: 48px;">
@@ -64,7 +64,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <p class="text-secondary small mb-1 fw-medium">Total User</p>
-                            <h3 class="fw-bold text-dark mb-0">1,284</h3>
+                            <h3 class="fw-bold text-dark mb-0">{{ $JumlahUser }}</h3>
                         </div>
                         <div class="bg-light text-dark rounded-circle d-flex align-items-center justify-content-center p-3"
                             style="width: 48px; height: 48px;">
@@ -74,6 +74,5 @@
                 </div>
             </div>
         </div>
-
     </main>
 </x-app-layout>

@@ -47,8 +47,9 @@
             <div class="col-12 col-sm-6 col-lg-4">
               <div class="card h-100 border-0 shadow-sm">
                 <div>
-                  <img src="{{ $product->image}}" class="w-100 object-fit-cover" style="height: 200px"
-                    alt="{{ $product->name }}">
+                  <img
+                    src="{{ Str::startsWith($product->image, ['http://', 'https://']) ? $product->image : asset('storage/' . $product->image) }}"
+                    class="w-100 object-fit-cover" style="height: 200px" alt="{{ $product->name }}">
                 </div>
                 <div class="card-body d-flex flex-column">
                   <span class="badge text-bg-secondary align-self-start mb-2">{{ $product->category->name }}</span>

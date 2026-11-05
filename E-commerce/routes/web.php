@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Storage;
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
@@ -19,9 +20,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('admin')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('../admin/dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
     Route::get('/products', function () {
         return view('../admin/products');
@@ -36,7 +35,7 @@ Route::middleware('admin')->group(function () {
 
 Route::get('/media/{path}', function (string $path) {
     $contents = Storage::disk('public')->get($path);
-    $mimeType = (new \finfo(FILEINFO_MIME_TYPE))->buffer($contents);
+    $mimeType = (new finfo(FILEINFO_MIME_TYPE))->buffer($contents);
 
     return response($contents, 200, ['Content-Type' => $mimeType]);
 })->where('path', '.*')->name('media');
